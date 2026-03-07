@@ -11,7 +11,7 @@ const stats = {
 
 const currentPage = await runner.getCurrentTask();
 
-if(currentrunner.rawLink.ctx === 'product-page') {
+if(currentPage.taskDef.ctx === 'product-page') {
     console.log('got product page', location.href);
     let desc = document.querySelectorAll('[data-testid="productCardShortDescr"]');
     let params = document.querySelectorAll('.detail-parameters');
