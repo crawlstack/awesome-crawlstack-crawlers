@@ -2,7 +2,7 @@
   "title": "StartupJobs.cz",
   "description": "Extract job offers for selected filters",
   "crawler_form": {
-    "start_url": "https://www.startupjobs.cz/nabidky?technologie=typescript",
+    "startUrl": "https://www.startupjobs.cz/nabidky?technologie=typescript",
     "interval": "60"
   }
 }

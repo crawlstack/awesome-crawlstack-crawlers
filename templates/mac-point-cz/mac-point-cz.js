@@ -1,5 +1,5 @@
 
-await page.onLoad();
+await runner.onLoad();
 
 
 const stats = {
@@ -9,9 +9,9 @@ const stats = {
 }
 
 
-const currentPage = await page.getCurrentPage();
+const currentPage = await runner.getCurrentTask();
 
-if(currentPage.rawLink.ctx === 'product-page') {
+if(currentrunner.rawLink.ctx === 'product-page') {
     console.log('got product page', location.href);
     let desc = document.querySelectorAll('[data-testid="productCardShortDescr"]');
     let params = document.querySelectorAll('.detail-parameters');
@@ -27,7 +27,7 @@ if(currentPage.rawLink.ctx === 'product-page') {
 
     const html = [...desc, ...params].map(elm => elm.outerHTML).join('\n');
 
-    await page.publishItems([{id, data: {id, html, links: [{href: id}]}}]);
+    await runner.publishItems([{id, data: {id, html, links: [{href: id}]}}]);
 
 } else {
     console.log('got listing page');
@@ -41,7 +41,7 @@ if(currentPage.rawLink.ctx === 'product-page') {
         hrefs = hrefs.filter(href => !/-8gb-/.test(href));
         stats.filteredLinks += hrefs.length;
 
-        await page.followLinks(hrefs.map(href => ({href, ctx: 'product-page'})));
+        await runner.addTasks(hrefs.map(href => ({href, ctx: 'product-page'})));
         console.log('Got links', stats);
     }
 
@@ -60,13 +60,13 @@ if(currentPage.rawLink.ctx === 'product-page') {
     let hasNext = true;
 
     do {
-        await page.sleep(5000);
+        await runner.sleep(5000);
         console.log(`Loading page`, stats);
         hasNext = await loadNext();
         stats.paginationPages ++;
     } while(hasNext);
 
-    await page.sleep(5000);
+    await runner.sleep(5000);
 
     await getLinks();
 

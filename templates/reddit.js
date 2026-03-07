@@ -121,7 +121,7 @@ async function extractRedditFeed(urlObj) {
 
         log(`[Hoofi] Queueing next page: ${nextToken}`);
 
-        await followLinks([{
+        await addTasks([{
             href: nextUrl.toString(),
             dedupe: 'RUN', // Ensure we don't loop back to this page in this specific run
             strategy: 'NAVIGATE'

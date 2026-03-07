@@ -1,6 +1,6 @@
 
 
-await page.onLoad();
+await runner.onLoad();
 
 
 const stats = {
@@ -13,8 +13,8 @@ const stats = {
 async function getItems() {
     console.log('page', stats.pages);
 
-    const req = await page.waitFor(async() => {
-        const reqs = await page.getRequests();
+    const req = await runner.waitFor(async() => {
+        const reqs = await runner.getRequests();
         const match = reqs.find(req => req.url.includes('/api/search/offers'));
         if(match?.status === 200) {
             return match;
@@ -41,7 +41,7 @@ async function getItems() {
         console.log(`publishing item ${ix}/${member.length}`);
         stats.items ++;
 
-        await page.publishItems([{
+        await runner.publishItems([{
             id,
             data: {
                 id,
@@ -59,7 +59,7 @@ async function getItems() {
 
 
 async function loadNext() {
-    await page.clearRequests();
+    await runner.clearRequests();
     const buttons = document.querySelectorAll('button');
     for(let button of buttons) {
         if(button.innerText.includes('Načíst další stránku')) {
