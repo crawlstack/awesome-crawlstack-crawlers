@@ -1,10 +1,10 @@
 
 await runner.onLoad();
-await runner.fetchIgnoreCors();
 
 const results = [];
 const visited = new Set();
-const queue = [{ url: 'https://nakladej.cz/web/sitemap/sitemap.xml', parents: [] }];
+// const queue = [{ url: 'https://nakladej.cz/web/sitemap/sitemap.xml', parents: [] }];
+const queue = [{ url: 'https://www.alza.cz/_sitemap-live-product.xml', parents: [] }];
 
 while(queue.length) {
     const { url, parents } = queue.shift();
@@ -12,7 +12,7 @@ while(queue.length) {
     visited.add(url);
     await console.log('visiting sitemap', url);
     try {
-        const res = await fetch(url);
+        const res = await runner.fetch(url);
         let text;
         // Check extension OR header for gzip
         const isGz = url.endsWith('.gz') || (res.headers.get('content-type')||'').includes('gzip');
@@ -25,7 +25,7 @@ while(queue.length) {
             } catch(e) {
                 // Fallback: re-fetch as text if decompression failed
                 // (In a real app, you might handle stream cloning better)
-                const retry = await fetch(url);
+                const retry = await runner.fetch(url);
                 text = await retry.text();
             }
         } else {

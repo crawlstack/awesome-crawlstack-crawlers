@@ -1,0 +1,8 @@
+{
+  "title": "Amundi",
+  "description": "",
+  "crawler_form": {
+    "name": "Amundi Fund Holdings Scraper (Excel)",
+    "startUrl": "https://www.amundietf.com/amundi/lux/en/retail/lu0908500753"
+  }
+}
