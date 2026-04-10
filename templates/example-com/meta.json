@@ -1,0 +1,7 @@
+{
+  "title": "Example.com",
+  "description": "Example crawler.",
+  "crawler_form": {
+    "startUrl": "https://example.com",
+  }
+}
